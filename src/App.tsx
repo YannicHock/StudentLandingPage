@@ -5,6 +5,14 @@ import Header from './components/Header.tsx';
 import Card from "./components/Card.tsx";
 import ThirdWidthContainer from "./components/layout/ThirdWidthContainer.tsx";
 import MailList from "./components/card_elements/mail/MailList.tsx";
+import Moodle from "./components/card_elements/courses/Moodle.tsx";
+import PVL from "./components/card_elements/courses/PVL.tsx";
+import Raumservice from "./components/card_elements/courses/Raumservice.tsx";
+import Bibliothek from "./components/card_elements/campus/Bibliothek.tsx";
+import Mensa from "./components/card_elements/campus/Mensa.tsx";
+import HorizontalDivider from "./components/HorizontalDivider.tsx";
+import ModulDatabase from "./components/card_elements/courses/ModuleDatabase.tsx";
+import Sim from "./components/card_elements/campus/Sim.tsx";
 
 function AppContent() {
     const {selectionStudy, selectionSemester} = useContext(SelectionContext);
@@ -20,29 +28,20 @@ function AppContent() {
                 ) : (
                     <ThirdWidthContainer>
                         <Card title={"Campusgeschehen"}>
-                            <p>1</p>
-                            <p>1</p>
-                            <p>1</p>
-                            <p>1</p>
-                            <p>1</p>
-                            <p>1</p>
-                            <p>1</p>
-                            <p>1</p>
-                            <p>1</p>
-                            <p>1</p>
-                            <p>1</p>
-                            <p>1</p>
-                            <p>1</p>
-                            <p>1</p>
-                            <p>1</p>
-                            <p>1</p>
-                            <p>3</p>
+                            <Mensa/>
+                            <Bibliothek/>
+                            <HorizontalDivider/>
+                            <Sim/>
                         </Card>
                         <Card title={"Webmail"}>
                             <MailList/>
                         </Card>
                         <Card title={"Deine Kurse"}>
-                            <p>3</p>
+                            <Moodle/>
+                            <PVL/>
+                            <Raumservice/>
+                            <HorizontalDivider/>
+                            <ModulDatabase/>
                         </Card>
                     </ThirdWidthContainer>
                 )}
