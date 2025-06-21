@@ -4,7 +4,6 @@ import SelectionPage from './pages/SelectionPage';
 import Header from './components/Header.tsx';
 import Card from "./components/Card.tsx";
 import ThirdWidthContainer from "./components/layout/ThirdWidthContainer.tsx";
-import MailElement from "./components/card_elements/mail/MailElement.tsx";
 import MailList from "./components/card_elements/mail/MailList.tsx";
 
 function AppContent() {

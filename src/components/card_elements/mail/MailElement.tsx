@@ -4,7 +4,7 @@ interface EmailCardProps {
     sender: string;
     subject: string;
     content: string;
-    read: boolean;
+    read?: boolean;
     onClick?: () => void;
 }
 

@@ -7,6 +7,7 @@ interface FullEmailViewProps {
     content: string;
     cc?: string[];
     attachments?: string[];
+    read?: boolean;
     onClose: () => void;
 }
 
