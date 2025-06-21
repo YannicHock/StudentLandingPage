@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "predeploy": "npm run build","deploy": "gh-pages -d dist -u \"github-actions <github-actions@github.com>\" -r https://$GITHUB_TOKEN@github.com/YannicHock/StudentLandingPage.git",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist -u \"github-actions <github-actions@github.com>\" -r https://x-access-token:$GITHUB_TOKEN@github.com/YannicHock/StudentLandingPage.git",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
