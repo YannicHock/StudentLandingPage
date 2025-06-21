@@ -86,11 +86,11 @@ const SelectionPage: React.FC = () => {
                 ) : (
                     <div className="bg-white rounded shadow p-4 text-center">
                         <p>
-                            Ihre Auswahl
+                            Deine Auswahl
                             1: <strong>{STUDY_OPTIONS.find(o => o.value === selectionStudy)?.label}</strong>
                         </p>
                         <p>
-                            Ihre Auswahl
+                            Deine Auswahl
                             2: <strong>{semesterOptions.find(o => o.value === selectionSemester)?.label}</strong>
                         </p>
                     </div>
