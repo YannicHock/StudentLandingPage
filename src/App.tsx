@@ -13,7 +13,7 @@ import Mensa from "./components/card_elements/campus/Mensa.tsx";
 import HorizontalDivider from "./components/HorizontalDivider.tsx";
 import ModulDatabase from "./components/card_elements/courses/ModuleDatabase.tsx";
 import Sim from "./components/card_elements/campus/Sim.tsx";
-
+import Calender from "./components/card_elements/Calender.tsx";
 function AppContent() {
     const {selectionStudy, selectionSemester} = useContext(SelectionContext);
 
@@ -37,6 +37,7 @@ function AppContent() {
                             <MailList/>
                         </Card>
                         <Card title={"Deine Kurse"}>
+                            <Calender/>
                             <Moodle/>
                             <PVL/>
                             <Raumservice/>

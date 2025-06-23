@@ -29,16 +29,18 @@ const FullEmailView: React.FC<FullEmailViewProps> = ({ senderName, senderEmail, 
                             <p className="text-sm text-gray-500">CC: {cc.join(', ')}</p>
                         )}
                     </div>
-                    {attachments && attachments.length > 0 && (
-                        <div className="ml-4">
-                            <h2 className="text-lg font-semibold">Anhänge:</h2>
-                            <ul className="list-disc list-inside text-gray-800">
-                                {attachments.map((file, index) => (
-                                    <li key={index}>{file}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
+                        {attachments && attachments.length > 0 && (
+                            <div className="ml-4">
+                                <h2 className="text-lg font-semibold">Anhänge:</h2>
+                                <div className="max-h-12 overflow-y-auto">
+                                    <ul className="list-disc list-inside text-gray-800">
+                                        {attachments.map((file, index) => (
+                                            <li key={index}>{file}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        )}
                 </div>
                 <div className="border-t border-gray-300 pt-4">
                     <p className="text-gray-800 whitespace-pre-wrap">{content}</p>
