@@ -28,11 +28,6 @@ const SelectionPage: React.FC = () => {
     // Build semester options for the selected study
     const semesterOptionsArray = selectionStudy
         ? Object.entries(semesterOptions)
-            .filter(([key]) => {
-                // Only show semesters that exist for the selected study in coursesData
-                // If you want to filter further, adjust here
-                return true;
-            })
             .map(([value, label]) => ({ value, label }))
         : [];
 
