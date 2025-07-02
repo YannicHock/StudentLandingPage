@@ -26,7 +26,7 @@ const Header: React.FC = () => {
         <header className="bg-blue-700 text-white shadow-md">
             <div className="container mx-auto flex items-center justify-between py-4 px-6">
                 <div className="flex items-center space-x-3">
-                    <img src="/icon.svg" alt="Logo" className="h-8 w-8"/>
+                    <img src="icon.svg" alt="Logo" className="h-8 w-8"/>
                     <h1 className="text-2xl font-bold">Student Landing Page</h1>
                 </div>
                 <nav className="flex items-center space-x-4">
