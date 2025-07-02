@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import { SelectionContext } from '../context/SelectionContext.tsx';
-import { MdRefresh } from 'react-icons/md';
+import React, {useContext} from 'react';
+import {SelectionContext} from '../context/SelectionContext.tsx';
+import {MdRefresh} from 'react-icons/md';
 
 const Header: React.FC = () => {
     const {
@@ -25,7 +25,10 @@ const Header: React.FC = () => {
     return (
         <header className="bg-blue-700 text-white shadow-md">
             <div className="container mx-auto flex items-center justify-between py-4 px-6">
-                <h1 className="text-2xl font-bold">Student Landing Page</h1>
+                <div className="flex items-center space-x-3">
+                    <img src="/icon.svg" alt="Logo" className="h-8 w-8"/>
+                    <h1 className="text-2xl font-bold">Student Landing Page</h1>
+                </div>
                 <nav className="flex items-center space-x-4">
                     <ul className="flex space-x-4 border-r border-l border-gray-400 pr-8 mr-8 pl-8">
                         <li>
@@ -41,7 +44,7 @@ const Header: React.FC = () => {
                         className="flex items-center bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
                         title="Studienwahl und Semester zurücksetzen"
                     >
-                        <MdRefresh size={20} />
+                        <MdRefresh size={20}/>
                     </button>
                 </nav>
             </div>
