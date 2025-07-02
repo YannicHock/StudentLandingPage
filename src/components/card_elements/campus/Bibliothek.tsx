@@ -1,11 +1,10 @@
 import React from 'react';
 import CollapsibleSubtitle from '../CollapsibleSubtitle';
+import ExternalLink from "../ExternalLink.tsx";
 
 const Bibliothek: React.FC = () => {
     return (
-        <CollapsibleSubtitle subtitle={"Bibliothek"}>
-            <p>Bibliothek</p>
-        </CollapsibleSubtitle>
+        <ExternalLink subtitle={"Bibliothek"} href={"https://www.htwsaar.de/studium-und-lehre/service-und-beratung/rund-ums-studium/bibliothek/bibliothek"}/>
     );
 };
 

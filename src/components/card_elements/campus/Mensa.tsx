@@ -1,11 +1,9 @@
 import React from 'react';
-import CollapsibleSubtitle from '../CollapsibleSubtitle';
+import ExternalLink from "../ExternalLink.tsx";
 
 const Mensa: React.FC = () => {
     return (
-        <CollapsibleSubtitle subtitle={"Mensa"}>
-            <p>Mensa</p>
-        </CollapsibleSubtitle>
+        <ExternalLink subtitle={"Mensa"} href={"https://mensaar.de/#/menu/htwcas"}/>
     );
 };
 
