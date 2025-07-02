@@ -32,7 +32,7 @@ const FullEmailView: React.FC<FullEmailViewProps> = ({ senderName, senderEmail, 
                         {attachments && attachments.length > 0 && (
                             <div className="ml-4">
                                 <h2 className="text-lg font-semibold">Anhänge:</h2>
-                                <div className="max-h-12 overflow-y-auto">
+                                <div className="max-h-12">
                                     <ul className="list-disc list-inside text-gray-800">
                                         {attachments.map((file, index) => (
                                             <li key={index}>{file}</li>

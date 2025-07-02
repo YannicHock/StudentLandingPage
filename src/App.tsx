@@ -22,7 +22,7 @@ function AppContent() {
     return (
         <>
             <Header/>
-            <div style={{height: 'calc(100vh - 72px)', overflow: 'auto'}}>
+            <div style={{height: 'calc(100vh - 72px)', overflow: 'hidden'}}>
                 {(!selectionStudy) ? (
                     <SelectionPage/>
                 ) : (!selectionSemester) ? (
