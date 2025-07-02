@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 interface CollapsibleSubtitleProps {
     subtitle: string;
     children: React.ReactNode;
+    defaultOpen?: boolean; // new prop
 }
 
-const CollapsibleSubtitle: React.FC<CollapsibleSubtitleProps> = ({ subtitle, children }) => {
-    const [isOpen, setIsOpen] = useState(false);
+const CollapsibleSubtitle: React.FC<CollapsibleSubtitleProps> = ({ subtitle, children, defaultOpen = false }) => {
+    const [isOpen, setIsOpen] = useState(defaultOpen);
 
     const toggleCollapse = () => {
         setIsOpen(!isOpen);

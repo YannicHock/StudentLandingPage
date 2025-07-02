@@ -5,13 +5,11 @@ import Header from './components/Header.tsx';
 import Card from "./components/Card.tsx";
 import ThirdWidthContainer from "./components/layout/ThirdWidthContainer.tsx";
 import MailList from "./components/card_elements/mail/MailList.tsx";
-import Moodle from "./components/card_elements/courses/Moodle.tsx";
-import PVL from "./components/card_elements/courses/PVL.tsx";
+import CourseList from "./components/card_elements/courses/CourseList.tsx";
 import Raumservice from "./components/card_elements/campus/Raumservice.tsx";
 import Bibliothek from "./components/card_elements/campus/Bibliothek.tsx";
 import Mensa from "./components/card_elements/campus/Mensa.tsx";
 import HorizontalDivider from "./components/HorizontalDivider.tsx";
-import ModulDatabase from "./components/card_elements/courses/ModuleDatabase.tsx";
 import Sim from "./components/card_elements/courses/Sim.tsx";
 import Calender from "./components/card_elements/Calender.tsx";
 import Asta from "./components/card_elements/campus/Asta.tsx";
@@ -31,22 +29,22 @@ function AppContent() {
                     <ThirdWidthContainer>
                         <Card title={"Campusgeschehen"}>
                             <Mensa/>
-                            <Asta/>
-                            <Saarfahrplan/>
-                            <Bibliothek/>
-                            <HorizontalDivider/>
                             <Raumservice/>
+                            <HorizontalDivider/>
+                            <Bibliothek/>
+                            <Asta/>
+                            <HorizontalDivider/>
+                            <Saarfahrplan/>
                         </Card>
                         <Card title={"Webmail"}>
                             <MailList/>
                         </Card>
                         <Card title={"Deine Kurse"}>
-                            <Calender/>
-                            <Moodle/>
-                            <PVL/>
-                            <Sim/>
+                            <CourseList/>
                             <HorizontalDivider/>
-                            <ModulDatabase/>
+                            <Calender/>
+                            <HorizontalDivider/>
+                            <Sim/>
                         </Card>
                     </ThirdWidthContainer>
                 )}

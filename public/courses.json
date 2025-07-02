@@ -1,0 +1,60 @@
+{
+  "pib": {
+    "1": [
+      {
+        "name": "Mathematics 1",
+        "room": "A101",
+        "lecturer": "Prof. Miller",
+        "moduldatenbankUrl": "https://example.com/module/math1",
+        "anmeldenUrl": "https://example.com/register/math1",
+        "pvl": "Assignment",
+        "klausurdate": "2024-07-10",
+        "credits": 6,
+        "hilfsmittel": "Calculator",
+        "key": "math1"
+      },
+      {
+        "name": "Programming Basics",
+        "room": "B202",
+        "lecturer": "Dr. Smith",
+        "moduldatenbankUrl": "https://example.com/module/prog",
+        "anmeldenUrl": "https://example.com/register/prog",
+        "pvl": "Project",
+        "klausurdate": "2024-07-15",
+        "credits": 5,
+        "hilfsmittel": "None",
+        "key": "prog"
+      }
+    ],
+    "2": [
+      {
+        "name": "Mathematics 2",
+        "room": "A102",
+        "lecturer": "Prof. Miller",
+        "moduldatenbankUrl": "https://example.com/module/math2",
+        "anmeldenUrl": "https://example.com/register/math2",
+        "pvl": "Assignment",
+        "klausurdate": "2024-08-10",
+        "credits": 6,
+        "hilfsmittel": "Calculator",
+        "key": "math2"
+      }
+    ]
+  },
+  "kib": {
+    "1": [
+      {
+        "name": "KIB Introduction",
+        "room": "C101",
+        "lecturer": "Prof. Schmidt",
+        "moduldatenbankUrl": "https://example.com/module/kib1",
+        "anmeldenUrl": "https://example.com/register/kib1",
+        "pvl": "Essay",
+        "klausurdate": "2024-07-20",
+        "credits": 4,
+        "hilfsmittel": "None",
+        "key": "kib1"
+      }
+    ]
+  }
+}

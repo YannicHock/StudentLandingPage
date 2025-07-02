@@ -1,11 +1,9 @@
 import React from 'react';
-import CollapsibleSubtitle from '../CollapsibleSubtitle.tsx';
+import ExternalLink from "../ExternalLink.tsx";
 
 const Sim: React.FC = () => {
     return (
-        <CollapsibleSubtitle subtitle={"Sim"}>
-            <p>Sim</p>
-        </CollapsibleSubtitle>
+        <ExternalLink subtitle={"SIM"} href={"https://sim.htwsaar.de/launchpad#Shell-home"}/>
     );
 };
 

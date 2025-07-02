@@ -1,5 +1,24 @@
 import React, { createContext, useState, useEffect } from 'react';
 
+export interface Course {
+    name: string;
+    room: string;
+    lecturer: string;
+    moduldatenbankUrl: string;
+    anmeldenUrl: string;
+    pvl?: string;
+    klausurdate: string;
+    credits: number;
+    hilfsmittel: string;
+    key: string | number;
+}
+
+type CoursesData = {
+    [fieldOfStudy: string]: {
+        [semester: string]: Course[];
+    };
+};
+
 export const SelectionContext = createContext<{
     selectionStudy: string | null;
     selectionSemester: string | null;
@@ -7,6 +26,7 @@ export const SelectionContext = createContext<{
     setSelectionSemester: (value: string | null) => void;
     getFriendlyStudyName: (value: string | null) => string | null;
     getFriendlySemesterName: (value: string | null) => string | null;
+    getCourses: () => Course[];
 }>({
     selectionStudy: null,
     selectionSemester: null,
@@ -14,6 +34,7 @@ export const SelectionContext = createContext<{
     setSelectionSemester: () => {},
     getFriendlyStudyName: () => null,
     getFriendlySemesterName: () => null,
+    getCourses: () => [],
 });
 
 const STORAGE_KEY_FIELD_OF_STUDY = 'userFieldOfStudy';
@@ -35,6 +56,7 @@ const SEMESTER_OPTIONS: Record<string, string> = {
 export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [selectionStudy, setSelectionStudy] = useState<string | null>(null);
     const [selectionSemester, setSelectionSemester] = useState<string | null>(null);
+    const [coursesData, setCoursesData] = useState<CoursesData>({});
 
     useEffect(() => {
         const savedStudy = localStorage.getItem(STORAGE_KEY_FIELD_OF_STUDY);
@@ -43,12 +65,36 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         if (savedStudy && savedSemester) setSelectionSemester(savedSemester);
     }, []);
 
+    useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const response = await fetch('/courses.json');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch courses');
+                }
+                const data: CoursesData = await response.json();
+                setCoursesData(data);
+            } catch (error) {
+                console.error('Error fetching courses:', error);
+            }
+        };
+
+        fetchCourses();
+    }, []);
+
     const getFriendlyStudyName = (value: string | null): string | null => {
         return value ? STUDY_OPTIONS[value] || null : null;
     };
 
     const getFriendlySemesterName = (value: string | null): string | null => {
         return value ? SEMESTER_OPTIONS[value] || null : null;
+    };
+
+    const getCourses = (): Course[] => {
+        if (!selectionStudy || !selectionSemester) return [];
+        return (
+            coursesData[selectionStudy]?.[selectionSemester] || []
+        );
     };
 
     return (
@@ -60,6 +106,7 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({ chi
                 setSelectionSemester,
                 getFriendlyStudyName,
                 getFriendlySemesterName,
+                getCourses,
             }}
         >
             {children}
