@@ -66,7 +66,7 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                const response = await fetch('/courses.json');
+                const response = await fetch('courses.json');
                 if (!response.ok) throw new Error('Failed to fetch courses');
                 const data: CoursesData = await response.json();
                 setCoursesData(data);
@@ -80,7 +80,7 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     useEffect(() => {
         const fetchOptions = async () => {
             try {
-                const response = await fetch('/options.json');
+                const response = await fetch('options.json');
                 if (!response.ok) throw new Error('Failed to fetch options');
                 const data: OptionsData = await response.json();
                 setStudyOptions(data.studyOptions);
