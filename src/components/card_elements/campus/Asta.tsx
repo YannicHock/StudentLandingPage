@@ -1,5 +1,4 @@
 import React from 'react';
-import CollapsibleSubtitle from '../CollapsibleSubtitle';
 import ExternalLink from "../ExternalLink.tsx";
 
 const Asta: React.FC = () => {
