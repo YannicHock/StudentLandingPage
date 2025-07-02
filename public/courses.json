@@ -1,43 +1,132 @@
 {
   "pib": {
-    "1": [
-      {
-        "name": "Mathematics 1",
-        "room": "A101",
-        "lecturer": "Prof. Miller",
-        "moduldatenbankUrl": "https://example.com/module/math1",
-        "anmeldenUrl": "https://example.com/register/math1",
-        "pvl": "Assignment",
-        "klausurdate": "2024-07-10",
-        "credits": 6,
-        "hilfsmittel": "Calculator",
-        "key": "math1"
-      },
-      {
-        "name": "Programming Basics",
-        "room": "B202",
-        "lecturer": "Dr. Smith",
-        "moduldatenbankUrl": "https://example.com/module/prog",
-        "anmeldenUrl": "https://example.com/register/prog",
-        "pvl": "Project",
-        "klausurdate": "2024-07-15",
-        "credits": 5,
-        "hilfsmittel": "None",
-        "key": "prog"
-      }
-    ],
     "2": [
       {
-        "name": "Mathematics 2",
-        "room": "A102",
-        "lecturer": "Prof. Miller",
-        "moduldatenbankUrl": "https://example.com/module/math2",
-        "anmeldenUrl": "https://example.com/register/math2",
-        "pvl": "Assignment",
-        "klausurdate": "2024-08-10",
+        "name": "Informatik 2",
+        "room": "tba",
+        "lecturer": "tba",
+        "moduldatenbankUrl": "https://moduldb.htwsaar.de/cgi-bin/moduldb-c?bkeys=pi2&ckeys=pi2&lang=de",
+        "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=118",
+        "klausurdate": "tba",
         "credits": 6,
-        "hilfsmittel": "Calculator",
-        "key": "math2"
+        "hilfsmittel": "tba",
+        "key": "pi2"
+      },
+      {
+        "name": "Programmierung 2",
+        "room": "tba",
+        "lecturer": "tba",
+        "moduldatenbankUrl": "https://moduldb.htwsaar.de/cgi-bin/moduldb-c?bkeys=pi2&ckeys=pp2&lang=de",
+        "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=120",
+        "pvl": "Quiz",
+        "klausurdate": "tba",
+        "credits": 6,
+        "hilfsmittel": "tba",
+        "key": "pp2"
+      },
+      {
+        "name": "Mathematik 2",
+        "room": "tba",
+        "lecturer": "tba",
+        "moduldatenbankUrl": "https://moduldb.htwsaar.de/cgi-bin/moduldb-c?bkeys=pi2&ckeys=km2&lang=de",
+        "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=119",
+        "klausurdate": "tba",
+        "credits": 6,
+        "hilfsmittel": "tba",
+        "key": "km2"
+      },
+      {
+        "name": "Wirtschaftsinformatik",
+        "room": "tba",
+        "lecturer": "tba",
+        "moduldatenbankUrl": "https://moduldb.htwsaar.de/cgi-bin/moduldb-c?bkeys=pi2&ckeys=pw&lang=de",
+        "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=122",
+        "klausurdate": "tba",
+        "credits": 6,
+        "hilfsmittel": "tba",
+        "key": "pw"
+      },
+      {
+        "name": "Rechnerarchitektur",
+        "room": "tba",
+        "lecturer": "tba",
+        "moduldatenbankUrl": "https://moduldb.htwsaar.de/cgi-bin/moduldb-c?bkeys=pi2&ckeys=pr&lang=de",
+        "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=121",
+        "pvl": "Praktikum",
+        "klausurdate": "tba",
+        "credits": 6,
+        "hilfsmittel": "tba",
+        "key": "pr"
+      },
+      {
+        "name": "Technical Reading and Writing",
+        "room": "tba",
+        "lecturer": "tba",
+        "moduldatenbankUrl": "https://moduldb.htwsaar.de/cgi-bin/moduldb-c?bkeys=pi2&ckeys=ktraw&lang=de",
+        "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=84",
+        "klausurdate": "tba",
+        "credits": 2,
+        "hilfsmittel": "tba",
+        "key": "ktraw"
+      }
+    ],
+    "4": [
+      {
+        "name": "Betriebssysteme",
+        "room": "tba",
+        "lecturer": "tba",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=6456",
+        "klausurdate": "tba",
+        "credits": 6,
+        "hilfsmittel": "tba",
+        "key": "os"
+      },
+      {
+        "name": "Security Engineering",
+        "room": "tba",
+        "lecturer": "tba",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=126",
+        "pvl": "Übungsblätter",
+        "klausurdate": "tba",
+        "credits": 6,
+        "hilfsmittel": "tba",
+        "key": "seceng"
+      },
+      {
+        "name": "Rechnernetze",
+        "room": "tba",
+        "lecturer": "tba",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=263",
+        "pvl": "Quiz",
+        "klausurdate": "tba",
+        "credits": 6,
+        "hilfsmittel": "tba",
+        "key": "net"
+      },
+      {
+        "name": "Wissenschaftliches Arbeiten",
+        "room": "tba",
+        "lecturer": "tba",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=127",
+        "klausurdate": "tba",
+        "credits": 2,
+        "hilfsmittel": "tba",
+        "key": "wissarb"
+      },
+      {
+        "name": "Projektarbeit",
+        "room": "tba",
+        "lecturer": "tba",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "tba",
+        "klausurdate": "tba",
+        "credits": 6,
+        "hilfsmittel": "tba",
+        "key": "projekt"
       }
     ]
   },

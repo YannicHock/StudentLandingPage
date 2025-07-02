@@ -1,33 +1,15 @@
 import React, { useContext } from 'react';
 import { SelectionContext } from '../context/SelectionContext';
 
-const STUDY_OPTIONS = [
-    { value: 'pib', label: 'Praktische Informatik (B.Sc.)' },
-    { value: 'pim', label: 'Praktische Informatik (M.Sc.)' },
-    { value: 'kib', label: 'Kommunikationsinformatik (B.Sc.)' },
-];
-
-const SEMESTER_OPTIONS: Record<string, { value: string; label: string }[]> = {
-    pib: [
-        { value: '2', label: '2. Fachsemester' },
-        { value: '4', label: '4. Fachsemester' },
-    ],
-    pim: [
-        { value: '1', label: '1. Fachsemester' },
-        { value: '2', label: '2. Fachsemester' },
-        { value: '3', label: '3. Fachsemester' },
-        { value: '4', label: '4. Fachsemester' },
-    ],
-    kib: [
-        { value: '1', label: '1. Fachsemester' },
-        { value: '2', label: '2. Fachsemester' },
-        { value: '3', label: '3. Fachsemester' },
-        { value: '4', label: '4. Fachsemester' },
-    ],
-};
-
 const SelectionPage: React.FC = () => {
-    const { selectionStudy, selectionSemester, setSelectionStudy, setSelectionSemester } = useContext(SelectionContext);
+    const {
+        selectionStudy,
+        selectionSemester,
+        setSelectionStudy,
+        setSelectionSemester,
+        studyOptions,
+        semesterOptions,
+    } = useContext(SelectionContext);
 
     const handleFirstChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const value = e.target.value;
@@ -43,7 +25,16 @@ const SelectionPage: React.FC = () => {
         localStorage.setItem('userSemester', value);
     };
 
-    const semesterOptions = selectionStudy && SEMESTER_OPTIONS[selectionStudy] ? SEMESTER_OPTIONS[selectionStudy] : [];
+    // Build semester options for the selected study
+    const semesterOptionsArray = selectionStudy
+        ? Object.entries(semesterOptions)
+            .filter(([key]) => {
+                // Only show semesters that exist for the selected study in coursesData
+                // If you want to filter further, adjust here
+                return true;
+            })
+            .map(([value, label]) => ({ value, label }))
+        : [];
 
     return (
         <div className="flex flex-col items-center justify-center h-full bg-gray-100">
@@ -56,8 +47,8 @@ const SelectionPage: React.FC = () => {
                         className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
                     >
                         <option value="" disabled>Bitte erste Auswahl treffen...</option>
-                        {STUDY_OPTIONS.map(opt => (
-                            <option key={opt.value} value={opt.value}>{opt.label}</option>
+                        {Object.entries(studyOptions).map(([value, label]) => (
+                            <option key={value} value={value}>{label}</option>
                         ))}
                     </select>
                 ) : !selectionSemester ? (
@@ -68,7 +59,7 @@ const SelectionPage: React.FC = () => {
                         className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
                     >
                         <option value="" disabled>Bitte zweite Auswahl treffen...</option>
-                        {semesterOptions.map(opt => (
+                        {semesterOptionsArray.map(opt => (
                             <option key={opt.value} value={opt.value}>{opt.label}</option>
                         ))}
                     </select>

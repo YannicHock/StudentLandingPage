@@ -1,0 +1,14 @@
+{
+  "studyOptions": {
+    "pib": "Praktische Informatik (B.Sc.)",
+    "kib": "Kommunikationsinformatik (B.Sc.)"
+  },
+  "semesterOptions": {
+    "1": "1. Fachsemester",
+    "2": "2. Fachsemester",
+    "3": "3. Fachsemester",
+    "4": "4. Fachsemester",
+    "5": "5. Fachsemester",
+    "6": "6. Fachsemester"
+  }
+}
