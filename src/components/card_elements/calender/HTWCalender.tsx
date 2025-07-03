@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import FullCalendar from "@fullcalendar/react";
 import type {EventClickArg, EventContentArg} from "@fullcalendar/core";
 import type {DateClickArg} from "@fullcalendar/interaction";
@@ -37,6 +37,15 @@ const HTWCalender: React.FC = () => {
     const [addModalDate, setAddModalDate] = useState<string | null>(null);
     const [refresh, setRefresh] = useState(0);
     const [fullscreen, setFullscreen] = useState(false);
+
+    useEffect(() => {
+        if (!fullscreen) return;
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setFullscreen(false);
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [fullscreen]);
 
     const deleteCustomEvent = (event: CalendarEvent) => {
         const events = getCustomEvents();
@@ -77,17 +86,17 @@ const HTWCalender: React.FC = () => {
     const allEvents = [...getCalendarEvents(), ...getCustomEvents()];
 
     return (
-        <div className={fullscreen ? "fixed inset-0 bg-white z-[9999] flex flex-col" : ""}>
-            <div className="flex justify-end mb-2">
+        <div className={fullscreen ? "fixed inset-0 bg-transparent z-[9999] flex flex-col" : ""}>
+            <div className={fullscreen? "flex justify-end mb-2 pr-4 pt-4" : "flex justify-end mb-2"}>
                 <button
-                    className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+                    className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 shadow"
                     onClick={() => setFullscreen(f => !f)}
                 >
                     {fullscreen ? "Vollbild verlassen" : "Vollbild"}
                 </button>
             </div>
             {fullscreen ? (
-                <div className="flex-1 min-h-0 flex flex-col">
+                <div className="flex-1 bg-white px-4 mx-4 pt-4 mt-8 flex flex-col">
                     <FullCalendar
                         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                         initialView="timeGridWeek"
@@ -108,7 +117,7 @@ const HTWCalender: React.FC = () => {
                         eventClick={handleEventClick}
                         dateClick={handleDateClick}
                         key={refresh}
-                        height="100%"
+                        height="-webkit-fill-available"
                     />
                 </div>
             ) : (
@@ -149,6 +158,7 @@ const HTWCalender: React.FC = () => {
                     onSave={handleAddEvent}
                 />
             )}
+            <button>Test</button>
         </div>
     );
 };
