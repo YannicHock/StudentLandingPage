@@ -4,3 +4,20 @@
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+
+.event-klausur {
+    background-color: #e53e3e !important; /* red */
+    color: #fff !important;
+}
+.event-vorlesung {
+    background-color: #3182ce !important; /* blue */
+    color: #fff !important;
+}
+.event-uebung {
+    background-color: #38a169 !important; /* green */
+    color: #fff !important;
+}
+.event-praktikum {
+    background-color: #d69e2e !important; /* yellow */
+    color: #fff !important;
+}
