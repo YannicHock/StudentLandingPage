@@ -307,6 +307,13 @@
             "room": "6303",
             "type": "Übung",
             "duration": "90"
+          },
+          {
+            "day": "Freitag",
+            "start": "11:45",
+            "room": "6303",
+            "type": "Übung",
+            "duration": "90"
           }
         ],
         "credits": 5,

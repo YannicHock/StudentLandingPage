@@ -11,7 +11,7 @@ import Bibliothek from "./components/card_elements/campus/Bibliothek.tsx";
 import Mensa from "./components/card_elements/campus/Mensa.tsx";
 import HorizontalDivider from "./components/HorizontalDivider.tsx";
 import Sim from "./components/card_elements/courses/Sim.tsx";
-import Calender from "./components/card_elements/Calender.tsx";
+import Calender from "./components/card_elements/calender/HTWCalender.tsx";
 import Asta from "./components/card_elements/campus/Asta.tsx";
 import Saarfahrplan from "./components/card_elements/campus/Saarfahrplan.tsx";
 function AppContent() {

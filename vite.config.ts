@@ -9,12 +9,20 @@ export default defineConfig(({ command }) => ({
     tailwindcss(),
   ],
   build: {
+    chunkSizeWarningLimit: 1000, // Increase warning threshold (optional)
     rollupOptions: {
       onwarn(warning, warn) {
         if (warning.code === 'PLUGIN_WARNING') {
           return;
         }
         warn(warning);
+      },
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        }
       }
     }
   }
