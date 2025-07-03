@@ -10,14 +10,39 @@
         "klausurdate": "12.08.2025",
         "lectures": [
           {
-            "day": "Montag",
-            "start": "10:15",
-            "duration" : "90"
+            "day": "Dienstag",
+            "start": "10:00",
+            "room": "8025",
+            "type": "Vorlesung",
+            "duration": "90"
           },
           {
             "day": "Mittwoch",
-            "start": "08:00",
-            "duration" : "90"
+            "start": "08:15",
+            "room": "4303",
+            "type": "Übung",
+            "duration": "90"
+          },
+          {
+            "day": "Mittwoch",
+            "start": "10:00",
+            "room": "4303",
+            "type": "Übung",
+            "duration": "90"
+          },
+          {
+            "day": "Mittwoch",
+            "start": "11:45",
+            "room": "4303",
+            "type": "Übung",
+            "duration": "90"
+          },
+          {
+            "day": "Donnerstag",
+            "start": "11:45",
+            "room": "8202",
+            "type": "Vorlesung",
+            "duration": "90"
           }
         ],
         "credits": 5,
@@ -32,6 +57,36 @@
         "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=120",
         "pvl": "wöchentliches Quiz",
         "klausurdate": "27.08.2025",
+		"lectures": [
+			{
+				"day": "Dienstag",
+				"start": "11:45",
+				"room": "5206",
+				"type": "Vorlesung",
+				"duration": "180"
+			},
+			{
+				"day": "Mittwoch",
+				"start": "08:15",
+				"room": "8207",
+				"type": "Praktikum STL",
+				"duration": "90"
+			},
+			{
+				"day": "Mittwoch",
+				"start": "10:00",
+				"room": "8207",
+				"type": "Praktikum STL",
+				"duration": "90"
+			},
+			{
+				"day": "Mittwoch",
+				"start": "11:45",
+				"room": "8207",
+				"type": "Praktikum STL",
+				"duration": "90"
+			}
+		],
         "credits": 8,
         "hilfsmittel": "3 von Hand beschriebene Blätter",
         "key": "pp2"
@@ -43,6 +98,50 @@
         "moduldatenbankUrl": "https://moduldb.htwsaar.de/cgi-bin/moduldb-c?bkeys=pi2&ckeys=km2&lang=de",
         "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=119",
         "klausurdate": "29.08.2025",
+		"lectures": [
+      {
+        "day": "Montag",
+        "start": "14:15",
+        "room": "4302",
+        "type": "Übung",
+        "duration": "90"
+      },
+      {
+        "day": "Dienstag",
+        "start": "08:15",
+        "room": "4302",
+        "type": "Übung",
+        "duration": "90"
+      },
+      {
+        "day": "Mittwoch",
+        "start": "14:15",
+        "room": "7012",
+        "type": "Übung (im 14-tägigen Rhythmus)",
+        "duration": "90"
+      },
+      {
+        "day": "Mittwoch",
+        "start": "14:15",
+        "room": "7106",
+        "type": "Vorlesung",
+        "duration": "90"
+      },
+      {
+        "day": "Donnerstag",
+        "start": "10:00",
+        "room": "5206",
+        "type": "Vorlesung",
+        "duration": "90"
+      },
+      {
+        "day": "Freitag",
+        "start": "11:45",
+        "room": "8025",
+        "type": "Übung",
+        "duration": "90"
+      }
+    ],
         "credits": 5,
         "hilfsmittel": "3 von Hand beschriebene Blätter",
         "key": "km2"
@@ -54,6 +153,22 @@
         "moduldatenbankUrl": "https://moduldb.htwsaar.de/cgi-bin/moduldb-c?bkeys=pi2&ckeys=pw&lang=de",
         "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=122",
         "klausurdate": "22.07.2025",
+		"lectures": [
+			{
+				"day": "Montag",
+				"start": "08:15",
+				"room": "8202",
+				"type": "Vorlesung",
+				"duration": "90"
+			},
+			{
+				"day": "Donnerstag",
+				"start": "08:15",
+				"room": "8202",
+				"type": "Vorlesung",
+				"duration": "90"
+			}
+		],
         "credits": 5,
         "hilfsmittel": "keine",
         "key": "pw"
@@ -66,6 +181,57 @@
         "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=121",
         "pvl": "Praktikum",
         "klausurdate": "25.07.2025",
+		"lectures": [
+      {
+        "day": "Montag",
+        "start": "10:00",
+        "room": "10.01.07",
+        "type": "Vorlesung",
+        "duration": "90"
+      },
+      {
+        "day": "Dienstag",
+        "start": "08:15",
+        "room": "5307",
+        "type": "Praktikum",
+        "duration": "90"
+      },
+      {
+        "day": "Montag",
+        "start": "14:15",
+        "room": "5307",
+        "type": "Praktikum",
+        "duration": "90"
+      },
+      {
+        "day": "Montag",
+        "start": "16:00",
+        "room": "5307",
+        "type": "Praktikum",
+        "duration": "90"
+      },
+      {
+        "day": "Freitag",
+        "start": "08:15",
+        "room": "5307",
+        "type": "Praktikum",
+        "duration": "90"
+      },
+      {
+        "day": "Freitag",
+        "start": "10:00",
+        "room": "5307",
+        "type": "Praktikum",
+        "duration": "90"
+      },
+      {
+        "day": "Freitag",
+        "start": "14:15",
+        "room": "5307",
+        "type": "Praktikum",
+        "duration": "90"
+      }
+    ],
         "credits": 5,
         "hilfsmittel": "keine",
         "key": "pr"
@@ -77,6 +243,15 @@
         "moduldatenbankUrl": "https://moduldb.htwsaar.de/cgi-bin/moduldb-c?bkeys=pi2&ckeys=ktraw&lang=de",
         "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=84",
         "klausurdate": "23.07.2025",
+		"lectures": [
+			{
+				"day": "Mittwoch",
+				"start": "08:15",
+				"room": "8202",
+				"type": "Vorlesung",
+				"duration": "180"
+			}
+		],
         "credits": 2,
         "hilfsmittel": "keine",
         "key": "ktraw"
@@ -90,6 +265,15 @@
         "moduldatenbankUrl": "https://moduldb.htwsaar.de/cgi-bin/moduldb-c?bkeys=pi2&ckeys=ksc&lang=de",
         "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=6456",
         "klausurdate": "24.07.2025",
+		"lectures": [
+			{
+				"day": "Donnerstag",
+				"start": "10:00",
+				"room": "8025",
+				"type": "Vorlesung",
+				"duration": "90"
+			}
+		],
         "credits": 5,
         "hilfsmittel": "keine",
         "key": "os"
@@ -102,6 +286,36 @@
         "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=126",
         "pvl": "Übungsblätter",
         "klausurdate": "21.08.2025",
+        "lectures": [
+          {
+            "day": "Donnerstag",
+            "start": "11:45",
+            "room": "8025",
+            "type": "Vorlesung",
+            "duration": "90"
+          },
+          {
+            "day": "Dienstag",
+            "start": "08:15",
+            "room": "6303",
+            "type": "Übung",
+            "duration": "90"
+          },
+          {
+            "day": "Donnerstag",
+            "start": "08:15",
+            "room": "6303",
+            "type": "Übung",
+            "duration": "90"
+          },
+          {
+            "day": "Freitag",
+            "start": "11:45",
+            "room": "6303",
+            "type": "Übung",
+            "duration": "90"
+          }
+        ],
         "credits": 5,
         "hilfsmittel": "keine",
         "key": "seceng"
@@ -114,6 +328,43 @@
         "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=263",
         "pvl": "Quiz",
         "klausurdate": "31.07.2025",
+        "lectures": [
+          {
+            "day": "Montag",
+            "start": "14:15",
+            "room": "5206",
+            "type": "Vorlesung",
+            "duration": "90"
+          },
+          {
+            "day": "Montag",
+            "start": "16:00",
+            "room": "5204",
+            "type": "Übung",
+            "duration": "90"
+          },
+          {
+            "day": "Montag",
+            "start": "17:45",
+            "room": "5204",
+            "type": "Übung",
+            "duration": "90"
+          },
+          {
+            "day": "Freitag",
+            "start": "08:15",
+            "room": "5204",
+            "type": "Übung",
+            "duration": "90"
+          },
+          {
+            "day": "Freitag",
+            "start": "10:00",
+            "room": "5204",
+            "type": "Übung",
+            "duration": "90"
+          }
+        ],
         "credits": 5,
         "hilfsmittel": "keine",
         "key": "net"
@@ -125,6 +376,15 @@
         "moduldatenbankUrl": "https://moduldb.htwsaar.de/cgi-bin/moduldb-c?bkeys=pi2&ckeys=pwaa&lang=de",
         "anmeldenUrl": "https://moodle.htwsaar.de/course/view.php?id=127",
         "klausurdate": "22.08.2025",
+        "lectures": [
+          {
+            "day": "Donnerstag",
+            "start": "14:15",
+            "room": "7110",
+            "type": "Vorlesung",
+            "duration": "90"
+          }
+        ],
         "credits": 2,
         "hilfsmittel": "Abgabe Wissenschaftliche Arbeit",
         "key": "wissarb"
