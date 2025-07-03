@@ -1,16 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface CollapsibleSubtitleProps {
     subtitle: string;
     children: React.ReactNode;
-    defaultOpen?: boolean; // new prop
+    defaultOpen?: boolean;
+    storageKey: string; // unique key for each collapsible
 }
 
-const CollapsibleSubtitle: React.FC<CollapsibleSubtitleProps> = ({ subtitle, children, defaultOpen = false }) => {
+const CollapsibleSubtitle: React.FC<CollapsibleSubtitleProps> = ({
+    subtitle,
+    children,
+    defaultOpen = false,
+    storageKey,
+}) => {
     const [isOpen, setIsOpen] = useState(defaultOpen);
 
+    useEffect(() => {
+        const saved = localStorage.getItem(storageKey);
+        if (saved !== null) {
+            setIsOpen(saved === 'true');
+        }
+    }, [storageKey]);
+
     const toggleCollapse = () => {
-        setIsOpen(!isOpen);
+        setIsOpen((prev) => {
+            localStorage.setItem(storageKey, (!prev).toString());
+            return !prev;
+        });
     };
 
     return (
