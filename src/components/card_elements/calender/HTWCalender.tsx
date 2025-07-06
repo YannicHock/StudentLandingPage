@@ -82,6 +82,11 @@ const HTWCalender: React.FC = () => {
         setRefresh(r => r + 1); // force re-render
     };
 
+    const handleResetHiddenCourses = () => {
+        localStorage.removeItem('notRelevantEvents');
+        setRefresh(r => r + 1); // force re-render
+    };
+
     // Merge custom events with context events
     const allEvents = [...getCalendarEvents(), ...getCustomEvents()];
 
@@ -158,7 +163,14 @@ const HTWCalender: React.FC = () => {
                     onSave={handleAddEvent}
                 />
             )}
-            <button>Test</button>
+            <div className="mt-4 flex justify-end">
+                <button
+                    className="text-sm text-gray-500 hover:text-gray-700 hover:underline"
+                    onClick={handleResetHiddenCourses}
+                >
+                    Verborgene Kurse zurücksetzen
+                </button>
+            </div>
         </div>
     );
 };

@@ -12,7 +12,7 @@ const CourseList: React.FC = () => {
         <CollapsibleSubtitle storageKey={"coursecolapsable"} defaultOpen={true} subtitle={"Kurse"}>
             <TwoWidthContainer>
                 {courses.map((course: any) => (
-                    <CourseCard {...course} key={course.key} />
+                    <CourseCard {...course} key={course.key} courseKey={course.key} />
                 ))}
             </TwoWidthContainer>
         </CollapsibleSubtitle>

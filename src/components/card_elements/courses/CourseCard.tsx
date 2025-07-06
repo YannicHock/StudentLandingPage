@@ -5,14 +5,13 @@ interface CourseCardProps {
     name: string;
     room: string;
     lecturer: string;
-    details: React.ReactNode;
     moduldatenbankUrl: string;
     anmeldenUrl: string;
     pvl?: string;
     klausurdate: string;
     credits: number;
     hilfsmittel: string;
-    key: string | number;
+    courseKey: string | number;
 }
 
 const buttonBase =
@@ -28,7 +27,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
                                                    klausurdate,
                                                    credits,
                                                    hilfsmittel,
-                                                   key,
+                                                   courseKey,
                                                }) => {
     const [expanded, setExpanded] = useState(false);
 
@@ -83,7 +82,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
                         </div>
                         <div className="flex justify-between">
                             <dt className="font-semibold">Anmeldeschlüssel:</dt>
-                            <dd>{key}</dd>
+                            <dd>{courseKey}</dd>
                         </div>
                     </dl>
                 </div>

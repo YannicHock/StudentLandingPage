@@ -49,7 +49,9 @@ export const SelectionContext = createContext<{
     getFriendlyStudyName: (value: string | null) => string | null;
     getFriendlySemesterName: (value: string | null) => string | null;
     getCourses: () => Course[];
+    getOtherCoursesForStudy: () => Course[];
     getCalendarEvents: () => CalendarEvent[];
+    addRelevantCourse: (course: Course) => void;
     studyOptions: Record<string, string>;
     semesterOptions: Record<string, string>;
 }>({
@@ -62,13 +64,16 @@ export const SelectionContext = createContext<{
     getFriendlyStudyName: () => null,
     getFriendlySemesterName: () => null,
     getCourses: () => [],
+    getOtherCoursesForStudy: () => [],
     getCalendarEvents: () => [],
+    addRelevantCourse: () => {},
     studyOptions: {},
     semesterOptions: {},
 });
 
 const STORAGE_KEY_FIELD_OF_STUDY = 'userFieldOfStudy';
 const STORAGE_KEY_SEMESTER = 'userSemester';
+const STORAGE_KEY_RELEVANT_EVENTS = 'relevantEvents';
 
 export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
     const [selectionStudy, setSelectionStudy] = useState<string | null>(null);
@@ -76,6 +81,7 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({chil
     const [coursesData, setCoursesData] = useState<CoursesData>({});
     const [studyOptions, setStudyOptions] = useState<Record<string, string>>({});
     const [semesterOptions, setSemesterOptions] = useState<Record<string, string>>({});
+    const [refreshKey, setRefreshKey] = useState(0); // Used to force context updates
 
     useEffect(() => {
         const savedStudy = localStorage.getItem(STORAGE_KEY_FIELD_OF_STUDY);
@@ -142,17 +148,70 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({chil
         return value ? semesterOptions[value] || null : null;
     };
 
-    const getCourses = (): Course[] => {
-        if (!selectionStudy || !selectionSemester) return [];
-        return coursesData[selectionStudy]?.[selectionSemester] || [];
-    };
-
     function parseGermanDate(dateStr: string): Date | null {
         const match = /^(\d{2})\.(\d{2})\.(\d{4})$/.exec(dateStr);
         if (!match) return null;
         const [, day, month, year] = match;
         return new Date(Number(year), Number(month) - 1, Number(day));
     }
+
+    const addRelevantCourse = (course: Course) => {
+        const relevant = JSON.parse(localStorage.getItem(STORAGE_KEY_RELEVANT_EVENTS) || '[]');
+
+        if (course.klausurdate) {
+            const examDate = parseGermanDate(course.klausurdate) || new Date(course.klausurdate);
+            if (examDate && !isNaN(examDate.getTime())) {
+                const seriesKey = `${course.key}_Klausur_${examDate.toISOString().slice(0, 10)}`;
+                if (!relevant.includes(seriesKey)) relevant.push(seriesKey);
+            }
+        }
+        if (Array.isArray(course.lectures)) {
+            course.lectures.forEach((lecture: Lecture) => {
+                const seriesKey = `${course.key}_${lecture.type}_${lecture.day}_${lecture.start}`;
+                if (!relevant.includes(seriesKey)) relevant.push(seriesKey);
+            });
+        }
+
+        localStorage.setItem(STORAGE_KEY_RELEVANT_EVENTS, JSON.stringify(relevant));
+        setRefreshKey(prev => prev + 1); // Force re-render
+    };
+
+    const getCourses = (): Course[] => {
+        if (!selectionStudy) return [];
+        const baseCourses = selectionSemester ? coursesData[selectionStudy]?.[selectionSemester] || [] : [];
+
+        const relevantEvents: string[] = JSON.parse(localStorage.getItem(STORAGE_KEY_RELEVANT_EVENTS) || '[]');
+        const relevantCourseKeys = new Set(relevantEvents.map(key => key.split('_')[0]));
+
+        const additionalCourses: Course[] = [];
+        if (coursesData[selectionStudy]) {
+            Object.values(coursesData[selectionStudy]).forEach(semesterCourses => {
+                semesterCourses.forEach(course => {
+                    if (relevantCourseKeys.has(String(course.key))) {
+                        if (!baseCourses.some(c => c.key === course.key) && !additionalCourses.some(c => c.key === course.key)) {
+                            additionalCourses.push(course);
+                        }
+                    }
+                });
+            });
+        }
+
+        return [...baseCourses, ...additionalCourses];
+    };
+
+    const getOtherCoursesForStudy = (): Course[] => {
+        if (!selectionStudy) return [];
+        const allSemestersForStudy = coursesData[selectionStudy];
+        if (!allSemestersForStudy) return [];
+
+        const otherCourses: Course[] = [];
+        for (const semesterKey in allSemestersForStudy) {
+            if (semesterKey !== selectionSemester) {
+                otherCourses.push(...allSemestersForStudy[semesterKey]);
+            }
+        }
+        return otherCourses;
+    };
 
     const getCalendarEvents = (): CalendarEvent[] => {
         const courses = getCourses();
@@ -161,24 +220,21 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({chil
         const endDate = new Date('2025-07-18');
 
         const notRelevant: string[] = JSON.parse(localStorage.getItem('notRelevantEvents') || '[]');
-        const relevant: string[] = JSON.parse(localStorage.getItem('relevantEvents') || '[]');
+        const relevant: string[] = JSON.parse(localStorage.getItem(STORAGE_KEY_RELEVANT_EVENTS) || '[]');
 
         const dayMap: Record<string, number> = {
             'Montag': 1, 'Dienstag': 2, 'Mittwoch': 3, 'Donnerstag': 4, 'Freitag': 5, 'Samstag': 6, 'Sonntag': 0
         };
 
-        // Helper to add an event if not already present (avoid duplicates)
         const addEvent = (event: CalendarEvent) => {
             if (!events.some(e => e.extendedProps?.seriesKey === event.extendedProps?.seriesKey && e.start === event.start)) {
                 events.push(event);
             }
         };
 
-        // 1. Add all relevant events from all courses (across all semesters/studies)
         Object.values(coursesData).forEach(semesters =>
             Object.values(semesters).forEach(coursesArr =>
                 coursesArr.forEach(course => {
-                    // Klausur
                     let examDate: Date | null = null;
                     if (course.klausurdate) {
                         examDate = parseGermanDate(course.klausurdate) || new Date(course.klausurdate);
@@ -188,7 +244,7 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({chil
                         const examEnd = new Date(examDate);
                         examEnd.setHours(12, 0, 0, 0);
                         const seriesKey = `${course.key}_Klausur_${examDate.toISOString().slice(0, 10)}`;
-                        if (relevant.includes(seriesKey)) {
+                        if (relevant.includes(seriesKey) && !notRelevant.includes(seriesKey)) {
                             addEvent({
                                 title: `Klausur: ${course.name} (${course.room})`,
                                 start: examDate.toISOString().slice(0, 16),
@@ -203,17 +259,17 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({chil
                             });
                         }
                     }
-                    // Lectures
                     if (Array.isArray(course.lectures)) {
                         course.lectures.forEach((lecture: Lecture) => {
                             const first = new Date(startDate);
                             const targetDay = dayMap[lecture.day];
+                            if (targetDay === undefined) return;
                             const dayDiff = (targetDay + 7 - first.getDay()) % 7;
                             first.setDate(first.getDate() + dayDiff);
 
                             const [hour, minute] = lecture.start.split(':').map(Number);
                             const seriesKey = `${course.key}_${lecture.type}_${lecture.day}_${lecture.start}`;
-                            if (relevant.includes(seriesKey)) {
+                            if (relevant.includes(seriesKey) && !notRelevant.includes(seriesKey)) {
                                 for (
                                     let d = new Date(first);
                                     d <= endDate;
@@ -245,9 +301,7 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({chil
             )
         );
 
-        // 2. Add normal events for current selection, unless not relevant or already added
         courses.forEach(course => {
-            // Klausur
             let examDate: Date | null = null;
             if (course.klausurdate) {
                 examDate = parseGermanDate(course.klausurdate) || new Date(course.klausurdate);
@@ -272,11 +326,11 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({chil
                     });
                 }
             }
-            // Lectures
             if (Array.isArray(course.lectures)) {
                 course.lectures.forEach((lecture: Lecture) => {
                     const first = new Date(startDate);
                     const targetDay = dayMap[lecture.day];
+                    if (targetDay === undefined) return;
                     const dayDiff = (targetDay + 7 - first.getDay()) % 7;
                     first.setDate(first.getDate() + dayDiff);
 
@@ -316,6 +370,7 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({chil
 
     return (
         <SelectionContext.Provider
+            key={refreshKey}
             value={{
                 selectionStudy,
                 selectionSemester,
@@ -324,7 +379,9 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({chil
                 getFriendlyStudyName,
                 getFriendlySemesterName,
                 getCourses,
+                getOtherCoursesForStudy,
                 getCalendarEvents,
+                addRelevantCourse,
                 studyOptions: filteredStudyOptions,
                 semesterOptions: filteredSemesterOptions,
             }}
