@@ -486,5 +486,355 @@
         "key": "kib1"
       }
     ]
+  },
+  "wahlpflichtmodule": {
+    "informatik": [
+      {
+        "name": ".NET Webkonzepte und Werkzeuge",
+        "lecturer": "Thomas Beckert",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 5,
+        "hilfsmittel": "",
+        "key": "wp-dotnet-web",
+        "lectures": [
+          {
+            "day": "Mittwoch",
+            "start": "08:15",
+            "duration": "270",
+            "type": "Vorlesung"
+          }
+        ]
+      },
+      {
+        "name": "Automatisierte Softwareentwicklung",
+        "lecturer": "Prof. Martin Burger",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 5,
+        "hilfsmittel": "",
+        "key": "wp-auto-sw",
+        "lectures": [
+          {
+            "day": "Montag",
+            "start": "11:45",
+            "duration": "90",
+            "type": "Vorlesung"
+          },
+          {
+            "day": "Dienstag",
+            "start": "16:00",
+            "duration": "90",
+            "type": "Vorlesung"
+          }
+        ]
+      },
+      {
+        "name": "Cloud Computing",
+        "lecturer": "Prof. Markus Esch, Julian Fischer",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 5,
+        "hilfsmittel": "",
+        "key": "wp-cloud",
+        "lectures": [
+          {
+            "day": "Mittwoch",
+            "start": "08:15",
+            "duration": "180",
+            "type": "Vorlesung"
+          }
+        ]
+      },
+      {
+        "name": "Computervision",
+        "lecturer": "Prof. Gerald Kroisandt, Dimitri Ovrutskiy",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 5,
+        "hilfsmittel": "",
+        "key": "wp-computervision",
+        "lectures": [
+          {
+            "day": "Freitag",
+            "start": "14:15",
+            "duration": "180",
+            "type": "Vorlesung"
+          }
+        ]
+      },
+      {
+        "name": "Einführung in sichere Programmierung",
+        "lecturer": "Prof. Peter Birkner",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 5,
+        "hilfsmittel": "",
+        "key": "wp-secure-programming",
+        "lectures": [
+          {
+            "day": "Mittwoch",
+            "start": "10:00",
+            "duration": "180",
+            "type": "Vorlesung"
+          }
+        ]
+      },
+      {
+        "name": "GUI-Programmierung mit Qt",
+        "lecturer": "Bui Hong-Phuc",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 5,
+        "hilfsmittel": "",
+        "key": "wp-qt-gui",
+        "lectures": [
+          {
+            "day": "Montag",
+            "start": "14:15",
+            "duration": "90",
+            "type": "Vorlesung"
+          }
+        ]
+      },
+      {
+        "name": "Machine Learning",
+        "lecturer": "Prof. Klaus Berberich",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 5,
+        "hilfsmittel": "",
+        "key": "wp-ml",
+        "lectures": [
+          {
+            "day": "Montag",
+            "start": "10:00",
+            "duration": "180",
+            "type": "Vorlesung"
+          }
+        ]
+      },
+      {
+        "name": "Numerische Software",
+        "lecturer": "Prof. Gerald Kroisandt, Dimitri Ovrutskiy",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 5,
+        "hilfsmittel": "",
+        "key": "wp-numerische-software",
+        "lectures": [
+          {
+            "day": "Mittwoch",
+            "start": "14:15",
+            "duration": "90",
+            "type": "Vorlesung"
+          },
+          {
+            "day": "Freitag",
+            "start": "11:45",
+            "duration": "90",
+            "type": "Vorlesung"
+          }
+        ]
+      },
+      {
+        "name": "Programmierung 4",
+        "lecturer": "n.n., Christopher Olbertz",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 5,
+        "hilfsmittel": "",
+        "key": "wp-prog4",
+        "lectures": [
+          {
+            "day": "Freitag",
+            "start": "08:15",
+            "duration": "180",
+            "type": "Vorlesung"
+          }
+        ]
+      },
+      {
+        "name": "Rapid Game Development",
+        "lecturer": "Prof. André Miede, Prof. Maximilian Altmeyer",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 5,
+        "hilfsmittel": "",
+        "key": "wp-rapid-game-dev",
+        "lectures": [
+          {
+            "day": "Mittwoch",
+            "start": "10:00",
+            "duration": "180",
+            "type": "Vorlesung"
+          }
+        ]
+      },
+      {
+        "name": "Softwareentwicklung für kollaborative Industrieroboter",
+        "lecturer": "Prof. Steffen Knapp, Mario Korherr",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 5,
+        "hilfsmittel": "",
+        "key": "wp-collab-robots",
+        "lectures": []
+      },
+      {
+        "name": "User Experience Engineering",
+        "lecturer": "Prof. Maximilian Altmeyer",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 5,
+        "hilfsmittel": "",
+        "key": "wp-ux-engineering",
+        "lectures": [
+          {
+            "day": "Montag",
+            "start": "10:00",
+            "duration": "180",
+            "type": "Vorlesung"
+          }
+        ]
+      }
+    ],
+    "nicht_informatik": [
+      {
+        "name": "Durchführung von RoboNight Workshops",
+        "lecturer": "Prof. Steffen Knapp, Mario Korherr",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 3,
+        "hilfsmittel": "",
+        "key": "wp-robonight",
+        "lectures": []
+      },
+      {
+        "name": "Grundlagen der Ausbildereignung",
+        "lecturer": "Dekan, Michael Meter",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 2,
+        "hilfsmittel": "",
+        "key": "wp-ausbildereignung",
+        "lectures": [
+          {
+            "day": "Mittwoch",
+            "start": "14:15",
+            "duration": "180",
+            "type": "Vorlesung"
+          }
+        ]
+      },
+      {
+        "name": "Grundlagen der Biomechanik und Bionik",
+        "lecturer": "Prof. Ramona Hoffmann",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 5,
+        "hilfsmittel": "",
+        "key": "wp-biomechanik-bionik",
+        "lectures": []
+      },
+      {
+        "name": "Industrial Ecology",
+        "lecturer": "Prof. Steven Frysinger (extern)",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 5,
+        "hilfsmittel": "",
+        "key": "wp-industrial-ecology",
+        "lectures": [
+          {
+            "day": "Mittwoch",
+            "start": "17:30",
+            "duration": "105",
+            "type": "Vorlesung"
+          }
+        ]
+      },
+      {
+        "name": "Intensive Programme \"Engineering Visions\"",
+        "lecturer": "Prof. Martin Löffler-Mang",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 4,
+        "hilfsmittel": "",
+        "key": "wp-engineering-visions",
+        "lectures": []
+      },
+      {
+        "name": "Medienkompetenz",
+        "lecturer": "Ulrich Bruch",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 5,
+        "hilfsmittel": "",
+        "key": "wp-medienkompetenz",
+        "lectures": [
+          {
+            "day": "Dienstag",
+            "start": "14:15",
+            "duration": "180",
+            "type": "Vorlesung"
+          }
+        ]
+      },
+      {
+        "name": "Rhetorik und Präsentationstechnik",
+        "lecturer": "Studienleitung, Peter Ludwig",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 2,
+        "hilfsmittel": "",
+        "key": "wp-rhetorik",
+        "lectures": [
+          {
+            "day": "Montag",
+            "start": "16:00",
+            "duration": "180",
+            "type": "Vorlesung"
+          }
+        ]
+      },
+      {
+        "name": "Sustainable Product Engineering",
+        "lecturer": "Prof. Pascal Stoffels",
+        "moduldatenbankUrl": "",
+        "anmeldenUrl": "",
+        "klausurdate": "",
+        "credits": 5,
+        "hilfsmittel": "",
+        "key": "wp-sustainable-product",
+        "lectures": [
+          {
+            "day": "Donnerstag",
+            "start": "14:15",
+            "duration": "180",
+            "type": "Vorlesung"
+          }
+        ]
+      }
+    ]
   }
 }
