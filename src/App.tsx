@@ -16,6 +16,7 @@ import Asta from "./components/card_elements/campus/Asta.tsx";
 import Saarfahrplan from "./components/card_elements/campus/Saarfahrplan.tsx";
 import TwoHeightContainer from "./components/layout/TwoHeightContainer.tsx";
 import AllCourses from "./components/card_elements/courses/AllCourses.tsx";
+import Wahlpflichtmodule from "./components/card_elements/courses/Wahlpflichtmodule.tsx";
 function AppContent() {
     const {selectionStudy, selectionSemester} = useContext(SelectionContext);
 
@@ -29,7 +30,21 @@ function AppContent() {
                     <SelectionPage/>
                 ) : (
                     <ThirdWidthContainer>
+                        <Card title={"Deine Kurse"}>
+                            <CourseList/>
+                            <Wahlpflichtmodule/>
+                            <HorizontalDivider/>
+                            <AllCourses/>
+                            <HorizontalDivider/>
+                            <Sim/>
+                        </Card>
+                        <Card title={"Kalender"}>
+                            <Calender/>
+                        </Card>
                         <TwoHeightContainer>
+                            <Card title={"Webmail"}>
+                                <MailList/>
+                            </Card>
                             <Card title={"Campusgeschehen"}>
                                 <Mensa/>
                                 <Raumservice/>
@@ -39,19 +54,7 @@ function AppContent() {
                                 <HorizontalDivider/>
                                 <Saarfahrplan/>
                             </Card>
-                            <Card title={"Webmail"}>
-                                <MailList/>
-                            </Card>
                         </TwoHeightContainer>
-                        <Card title={"Deine Kurse"}>
-                            <CourseList/>
-                            <HorizontalDivider/>
-                            <AllCourses/>
-                            <Sim/>
-                        </Card>
-                        <Card title={"Kalender"}>
-                            <Calender/>
-                        </Card>
                     </ThirdWidthContainer>
                 )}
             </div>

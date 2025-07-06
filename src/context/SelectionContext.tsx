@@ -30,10 +30,19 @@ export interface CalendarEvent {
     extendedProps?: Record<string, unknown>;
 }
 
-type CoursesData = {
+type WahlpflichtmoduleData = {
+    informatik: Course[];
+    nicht_informatik: Course[];
+}
+
+type CoursesByStudy = {
     [fieldOfStudy: string]: {
         [semester: string]: Course[];
     };
+};
+
+type CoursesData = CoursesByStudy & {
+    wahlpflichtmodule?: WahlpflichtmoduleData;
 };
 
 type OptionsData = {
@@ -50,6 +59,7 @@ export const SelectionContext = createContext<{
     getFriendlySemesterName: (value: string | null) => string | null;
     getCourses: () => Course[];
     getOtherCoursesForStudy: () => Course[];
+    getWahlpflichtmodule: (type: 'informatik' | 'nicht_informatik') => Course[];
     getCalendarEvents: () => CalendarEvent[];
     addRelevantCourse: (course: Course) => void;
     studyOptions: Record<string, string>;
@@ -65,6 +75,7 @@ export const SelectionContext = createContext<{
     getFriendlySemesterName: () => null,
     getCourses: () => [],
     getOtherCoursesForStudy: () => [],
+    getWahlpflichtmodule: () => [],
     getCalendarEvents: () => [],
     addRelevantCourse: () => {},
     studyOptions: {},
@@ -78,7 +89,7 @@ const STORAGE_KEY_RELEVANT_EVENTS = 'relevantEvents';
 export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
     const [selectionStudy, setSelectionStudy] = useState<string | null>(null);
     const [selectionSemester, setSelectionSemester] = useState<string | null>(null);
-    const [coursesData, setCoursesData] = useState<CoursesData>({});
+    const [coursesData, setCoursesData] = useState<CoursesData>({} as CoursesData);
     const [studyOptions, setStudyOptions] = useState<Record<string, string>>({});
     const [semesterOptions, setSemesterOptions] = useState<Record<string, string>>({});
     const [refreshKey, setRefreshKey] = useState(0); // Used to force context updates
@@ -124,7 +135,7 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({chil
             Object.entries(studyOptions).filter(([studyKey]) => {
                 const semesters = coursesData[studyKey];
                 if (!semesters) return false;
-                return Object.values(semesters).some(coursesArr => coursesArr.length > 0);
+                return Object.values(semesters).some(coursesArr => Array.isArray(coursesArr) && coursesArr.length > 0);
             })
         );
     }, [studyOptions, coursesData]);
@@ -184,8 +195,11 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({chil
         const relevantCourseKeys = new Set(relevantEvents.map(key => key.split('_')[0]));
 
         const additionalCourses: Course[] = [];
+
+        // Check regular courses
         if (coursesData[selectionStudy]) {
             Object.values(coursesData[selectionStudy]).forEach(semesterCourses => {
+                if(!Array.isArray(semesterCourses)) return;
                 semesterCourses.forEach(course => {
                     if (relevantCourseKeys.has(String(course.key))) {
                         if (!baseCourses.some(c => c.key === course.key) && !additionalCourses.some(c => c.key === course.key)) {
@@ -193,6 +207,17 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({chil
                         }
                     }
                 });
+            });
+        }
+
+        // Check elective courses
+        if (coursesData.wahlpflichtmodule) {
+            Object.values(coursesData.wahlpflichtmodule).flat().forEach(course => {
+                if (relevantCourseKeys.has(String(course.key))) {
+                    if (!baseCourses.some(c => c.key === course.key) && !additionalCourses.some(c => c.key === course.key)) {
+                        additionalCourses.push(course);
+                    }
+                }
             });
         }
 
@@ -207,10 +232,17 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({chil
         const otherCourses: Course[] = [];
         for (const semesterKey in allSemestersForStudy) {
             if (semesterKey !== selectionSemester) {
-                otherCourses.push(...allSemestersForStudy[semesterKey]);
+                const courses = allSemestersForStudy[semesterKey];
+                if(Array.isArray(courses)) {
+                    otherCourses.push(...courses);
+                }
             }
         }
         return otherCourses;
+    };
+
+    const getWahlpflichtmodule = (type: 'informatik' | 'nicht_informatik'): Course[] => {
+        return coursesData.wahlpflichtmodule?.[type] || [];
     };
 
     const getCalendarEvents = (): CalendarEvent[] => {
@@ -232,74 +264,77 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({chil
             }
         };
 
-        Object.values(coursesData).forEach(semesters =>
-            Object.values(semesters).forEach(coursesArr =>
-                coursesArr.forEach(course => {
-                    let examDate: Date | null = null;
-                    if (course.klausurdate) {
-                        examDate = parseGermanDate(course.klausurdate) || new Date(course.klausurdate);
-                    }
-                    if (examDate && !isNaN(examDate.getTime())) {
-                        examDate.setHours(9, 0, 0, 0);
-                        const examEnd = new Date(examDate);
-                        examEnd.setHours(12, 0, 0, 0);
-                        const seriesKey = `${course.key}_Klausur_${examDate.toISOString().slice(0, 10)}`;
-                        if (relevant.includes(seriesKey) && !notRelevant.includes(seriesKey)) {
+        const { wahlpflichtmodule, ...studies } = coursesData;
+        const allCourses = [
+            ...Object.values(studies).flatMap(semesters => Object.values(semesters).flat()),
+            ...(wahlpflichtmodule ? Object.values(wahlpflichtmodule).flat() : [])
+        ];
+
+        allCourses.forEach(course => {
+            let examDate: Date | null = null;
+            if (course.klausurdate) {
+                examDate = parseGermanDate(course.klausurdate) || new Date(course.klausurdate);
+            }
+            if (examDate && !isNaN(examDate.getTime())) {
+                examDate.setHours(9, 0, 0, 0);
+                const examEnd = new Date(examDate);
+                examEnd.setHours(12, 0, 0, 0);
+                const seriesKey = `${course.key}_Klausur_${examDate.toISOString().slice(0, 10)}`;
+                if (relevant.includes(seriesKey) && !notRelevant.includes(seriesKey)) {
+                    addEvent({
+                        title: `Klausur: ${course.name}${course.room ? ` (${course.room})` : ''}`,
+                        start: examDate.toISOString().slice(0, 16),
+                        end: examEnd.toISOString().slice(0, 16),
+                        description: `Klausur für ${course.name}${course.room ? ` im Raum ${course.room}` : ''}`,
+                        extendedProps: {
+                            lecturer: course.lecturer,
+                            room: course.room,
+                            type: 'Klausur',
+                            seriesKey,
+                        }
+                    });
+                }
+            }
+            if (Array.isArray(course.lectures)) {
+                course.lectures.forEach((lecture: Lecture) => {
+                    const first = new Date(startDate);
+                    const targetDay = dayMap[lecture.day];
+                    if (targetDay === undefined) return;
+                    const dayDiff = (targetDay + 7 - first.getDay()) % 7;
+                    first.setDate(first.getDate() + dayDiff);
+
+                    const [hour, minute] = lecture.start.split(':').map(Number);
+                    const seriesKey = `${course.key}_${lecture.type}_${lecture.day}_${lecture.start}`;
+                    if (relevant.includes(seriesKey) && !notRelevant.includes(seriesKey)) {
+                        for (
+                            let d = new Date(first);
+                            d <= endDate;
+                            d.setDate(d.getDate() + 7)
+                        ) {
+                            const start = new Date(d);
+                            start.setHours(hour, minute, 0, 0);
+
+                            const end = new Date(start);
+                            end.setMinutes(end.getMinutes() + Number(lecture.duration));
+                            const room = lecture.room || course.room;
+
                             addEvent({
-                                title: `Klausur: ${course.name} (${course.room})`,
-                                start: examDate.toISOString().slice(0, 16),
-                                end: examEnd.toISOString().slice(0, 16),
-                                description: `Klausur für ${course.name} im Raum ${course.room}`,
+                                title: `${course.name}${room ? ` (${room})` : ''}`,
+                                start: start.toISOString().slice(0, 16),
+                                end: end.toISOString().slice(0, 16),
+                                description: `${course.name}${room ? ` (${room})` : ''}`,
                                 extendedProps: {
                                     lecturer: course.lecturer,
-                                    room: course.room,
-                                    type: 'Klausur',
+                                    room: room,
+                                    type: lecture.type,
                                     seriesKey,
                                 }
                             });
                         }
                     }
-                    if (Array.isArray(course.lectures)) {
-                        course.lectures.forEach((lecture: Lecture) => {
-                            const first = new Date(startDate);
-                            const targetDay = dayMap[lecture.day];
-                            if (targetDay === undefined) return;
-                            const dayDiff = (targetDay + 7 - first.getDay()) % 7;
-                            first.setDate(first.getDate() + dayDiff);
-
-                            const [hour, minute] = lecture.start.split(':').map(Number);
-                            const seriesKey = `${course.key}_${lecture.type}_${lecture.day}_${lecture.start}`;
-                            if (relevant.includes(seriesKey) && !notRelevant.includes(seriesKey)) {
-                                for (
-                                    let d = new Date(first);
-                                    d <= endDate;
-                                    d.setDate(d.getDate() + 7)
-                                ) {
-                                    const start = new Date(d);
-                                    start.setHours(hour, minute, 0, 0);
-
-                                    const end = new Date(start);
-                                    end.setMinutes(end.getMinutes() + Number(lecture.duration));
-
-                                    addEvent({
-                                        title: `${course.name} (${lecture.room || course.room})`,
-                                        start: start.toISOString().slice(0, 16),
-                                        end: end.toISOString().slice(0, 16),
-                                        description: `${course.name} (${lecture.room || course.room})`,
-                                        extendedProps: {
-                                            lecturer: course.lecturer,
-                                            room: lecture.room || course.room,
-                                            type: lecture.type,
-                                            seriesKey,
-                                        }
-                                    });
-                                }
-                            }
-                        });
-                    }
-                })
-            )
-        );
+                });
+            }
+        });
 
         courses.forEach(course => {
             let examDate: Date | null = null;
@@ -313,10 +348,10 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({chil
                 const seriesKey = `${course.key}_Klausur_${examDate.toISOString().slice(0, 10)}`;
                 if (!notRelevant.includes(seriesKey) && !relevant.includes(seriesKey)) {
                     addEvent({
-                        title: `Klausur: ${course.name} (${course.room})`,
+                        title: `Klausur: ${course.name}${course.room ? ` (${course.room})` : ''}`,
                         start: examDate.toISOString().slice(0, 16),
                         end: examEnd.toISOString().slice(0, 16),
-                        description: `Klausur für ${course.name} im Raum ${course.room}`,
+                        description: `Klausur für ${course.name}${course.room ? ` im Raum ${course.room}` : ''}`,
                         extendedProps: {
                             lecturer: course.lecturer,
                             room: course.room,
@@ -347,15 +382,16 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({chil
 
                         const end = new Date(start);
                         end.setMinutes(end.getMinutes() + Number(lecture.duration));
+                        const room = lecture.room || course.room;
 
                         addEvent({
-                            title: `${course.name} (${lecture.room || course.room})`,
+                            title: `${course.name}${room ? ` (${room})` : ''}`,
                             start: start.toISOString().slice(0, 16),
                             end: end.toISOString().slice(0, 16),
-                            description: `${course.name} (${lecture.room || course.room})`,
+                            description: `${course.name}${room ? ` (${room})` : ''}`,
                             extendedProps: {
                                 lecturer: course.lecturer,
-                                room: lecture.room || course.room,
+                                room: room,
                                 type: lecture.type,
                                 seriesKey,
                             }
@@ -380,6 +416,7 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({chil
                 getFriendlySemesterName,
                 getCourses,
                 getOtherCoursesForStudy,
+                getWahlpflichtmodule,
                 getCalendarEvents,
                 addRelevantCourse,
                 studyOptions: filteredStudyOptions,
