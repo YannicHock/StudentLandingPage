@@ -42,7 +42,16 @@ function AppContent() {
                             <Calender/>
                         </Card>
                         <TwoHeightContainer>
-                            <Card title={"Webmail"}>
+                            <Card title={
+                                <div className="relative w-full">
+                                    <div className="text-center">Neue eMails</div>
+                                    <a href="https://webmail.hiz-saarland.de" target={"_blank"} className="absolute right-0 top-1/2 -translate-y-1/2 mr-1 text-blue-500 hover:text-blue-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            }>
                                 <MailList/>
                             </Card>
                             <Card title={"Campusgeschehen"}>
