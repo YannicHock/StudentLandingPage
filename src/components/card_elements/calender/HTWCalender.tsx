@@ -30,6 +30,63 @@ const saveCustomEvent = (event: CalendarEvent) => {
     localStorage.setItem('customEvents', JSON.stringify(events));
 };
 
+const generateICS = (events: CalendarEvent[]): string => {
+    let icsContent = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//HTWCalendar//DE',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH'
+    ].join('\r\n');
+
+    events.forEach(event => {
+        const startDate = new Date(event.start);
+        const endDate = new Date(event.end);
+
+        const formatDate = (date: Date, isAllDay: boolean) => {
+            if (isAllDay) {
+                return date.toISOString().replace(/[-:]/g, '').split('T')[0];
+            }
+            return date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/g, '');
+        };
+
+        const isAllDay = !!event.extendedProps?.allDay;
+        const startFormatted = formatDate(startDate, isAllDay);
+        const endFormatted = formatDate(endDate, isAllDay);
+
+        icsContent += '\r\nBEGIN:VEVENT';
+        icsContent += `\r\nUID:${event.id || crypto.randomUUID()}`;
+
+        if (isAllDay) {
+            icsContent += `\r\nDTSTART;VALUE=DATE:${startFormatted}`;
+            icsContent += `\r\nDTEND;VALUE=DATE:${endFormatted}`;
+        } else {
+            icsContent += `\r\nDTSTART:${startFormatted}`;
+            icsContent += `\r\nDTEND:${endFormatted}`;
+        }
+
+        icsContent += `\r\nSUMMARY:${event.title}`;
+
+        if (event.description) {
+            icsContent += `\r\nDESCRIPTION:${event.description.replace(/\n/g, '\\n')}`;
+        }
+
+        if (event.extendedProps?.room) {
+            icsContent += `\r\nLOCATION:${event.extendedProps.room}`;
+        }
+
+        if (event.extendedProps?.lecturer) {
+            icsContent += `\r\nORGANIZER:${event.extendedProps.lecturer}`;
+        }
+
+        icsContent += '\r\nEND:VEVENT';
+    });
+
+    icsContent += '\r\nEND:VCALENDAR';
+
+    return icsContent;
+};
+
 const HTWCalender: React.FC = () => {
     const {getCalendarEvents} = useContext(SelectionContext);
     const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
@@ -79,20 +136,42 @@ const HTWCalender: React.FC = () => {
     const handleAddEvent = (event: CalendarEvent) => {
         saveCustomEvent(event);
         setShowAddModal(false);
-        setRefresh(r => r + 1); // force re-render
+        setRefresh(r => r + 1);
     };
 
     const handleResetHiddenCourses = () => {
         localStorage.removeItem('notRelevantEvents');
-        setRefresh(r => r + 1); // force re-render
+        setRefresh(r => r + 1);
     };
 
-    // Merge custom events with context events
+    const handleExportCalendar = () => {
+        const icsContent = generateICS(allEvents);
+
+        const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'htw-kalender.ics');
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
+    };
+
     const allEvents = [...getCalendarEvents(), ...getCustomEvents()];
 
     return (
         <div className={fullscreen ? "fixed inset-0 bg-transparent z-[9999] flex flex-col" : ""}>
-            <div className={fullscreen? "flex justify-end mb-2 pr-4 pt-4" : "flex justify-end mb-2"}>
+            <div className={fullscreen? "flex justify-end mb-2 pr-4 pt-4" : "flex justify-end mb-2 gap-2"}>
+                <button
+                    className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 shadow"
+                    onClick={handleExportCalendar}
+                >
+                    Kalender exportieren
+                </button>
                 <button
                     className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 shadow"
                     onClick={() => setFullscreen(f => !f)}
@@ -146,7 +225,6 @@ const HTWCalender: React.FC = () => {
                     eventClick={handleEventClick}
                     dateClick={handleDateClick}
                     key={refresh}
-                    // Remove height="100%" here to let it size naturally
                 />
             )}
             {selectedEvent && (

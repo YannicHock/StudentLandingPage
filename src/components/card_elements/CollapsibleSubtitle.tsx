@@ -4,7 +4,7 @@ interface CollapsibleSubtitleProps {
     subtitle: string;
     children: React.ReactNode;
     defaultOpen?: boolean;
-    storageKey: string; // unique key for each collapsible
+    storageKey: string;
 }
 
 const CollapsibleSubtitle: React.FC<CollapsibleSubtitleProps> = ({
