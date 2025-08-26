@@ -17,6 +17,9 @@ interface CourseCardProps {
 const buttonBase =
     "absolute px-3 py-1 text-sm rounded border border-blue-500 text-blue-500 bg-transparent hover:bg-blue-100 transition-colors";
 
+const smallButtonBase =
+    "absolute px-2 py-0.5 text-xs rounded border border-blue-500 text-blue-500 bg-transparent hover:bg-blue-100 transition-colors";
+
 const CourseCard: React.FC<CourseCardProps> = ({
                                                    name,
                                                    room,
@@ -34,22 +37,21 @@ const CourseCard: React.FC<CourseCardProps> = ({
     return (
         <div
             className={`relative w-full min-h-[140px] bg-blue-50 rounded-xl shadow-2xl border border-gray-300 flex flex-col items-center justify-center p-4 pt-12 pb-12 mx-auto backdrop-blur-sm  ${expanded ? "min-h-[220px]" : ""}`}>
-            {/* Top right button */}
-            <button className={`${buttonBase} top-2.5 right-2.5 z-10`}>
-                <SmallExternalLink subtitle={"Moduldatenbank"} href={moduldatenbankUrl}/>
+            <button className={`${smallButtonBase} top-2.5 left-2.5 z-10`}>
+                <SmallExternalLink subtitle={"Prüfungsanmeldung"} href={"https://sim.htwsaar.de/launchpad#Shell-home"}/>
             </button>
-            {/* Bottom left button */}
+            <button className={`${smallButtonBase} top-2.5 right-2.5 z-10`}>
+                <SmallExternalLink subtitle={"Kursanmeldung"} href={anmeldenUrl}/>
+            </button>
             <button
                 className={`${buttonBase} bottom-2.5 left-2.5`}
                 onClick={() => setExpanded((prev) => !prev)}
             >
                 {expanded ? "Weniger Infos" : "Mehr Infos"}
             </button>
-            {/* Bottom right button */}
             <button className={`${buttonBase} bottom-2.5 right-2.5`}>
-                <SmallExternalLink subtitle={"Anmelden"} href={anmeldenUrl}/>
+                <SmallExternalLink subtitle={"Moduldatenbank"} href={moduldatenbankUrl}/>
             </button>
-            {/* Centered text */}
             <span className="text-center w-full text-base font-medium leading-tight">
                 <span className="text-blue-800">{name}</span>
                 <br/>
@@ -57,7 +59,6 @@ const CourseCard: React.FC<CourseCardProps> = ({
                 <br/>
                 <span className="text-gray-600 text-xs">Dozent: {lecturer}</span>
             </span>
-            {/* Expanded content */}
             {expanded && (
                 <div
                     className={`w-full text-xs text-gray-700 bg-white rounded shadow-inner p-2 border border-gray-200 max-w-full overflow-hidden ${expanded ? "mt-2 max-h-40" : "max-h-0"}`}

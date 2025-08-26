@@ -35,8 +35,6 @@ function AppContent() {
                             <Wahlpflichtmodule/>
                             <HorizontalDivider/>
                             <AllCourses/>
-                            <HorizontalDivider/>
-                            <Sim/>
                         </Card>
                         <Card title={"Kalender"}>
                             <Calender/>
